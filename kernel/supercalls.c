@@ -760,7 +760,7 @@ int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd,
 		static char original_version_buf[65] = {0};
 
 		// basically void * void __user * void __user *arg
-		void ***ppptr = (uintptr_t)arg;
+		void __user **ppptr = (void __user **)arg;
 
 		// user pointer storage
 		// init this as zero so this works on 32-on-64 compat (LE)
@@ -769,8 +769,8 @@ int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd,
 
 		pr_info("sys_reboot: ppptr: 0x%lx \n", ppptr);
 
-		// arg here is ***, dereference to pull out **
-		if (copy_from_user(&u_pptr, (void __user *)*ppptr, sizeof(u_pptr)))
+		// arg here is ***, pull out user-space ** via copy_from_user
+		if (copy_from_user(&u_pptr, ppptr, sizeof(u_pptr)))
 			return 0;
 
 		pr_info("sys_reboot: u_pptr: 0x%lx \n", u_pptr);
