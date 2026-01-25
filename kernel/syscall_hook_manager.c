@@ -352,7 +352,9 @@ void ksu_syscall_hook_manager_init(void)
 
 	ksu_setuid_hook_init();
 	ksu_sucompat_init();
+#ifndef CONFIG_KSU_SUSFS
 	ksu_avc_spoof_init();
+#endif // #ifndef CONFIG_KSU_SUSFS
 }
 
 void ksu_syscall_hook_manager_exit(void)
@@ -371,7 +373,9 @@ void ksu_syscall_hook_manager_exit(void)
 
 	ksu_sucompat_exit();
 	ksu_setuid_hook_exit();
+#ifndef CONFIG_KSU_SUSFS
 	ksu_avc_spoof_exit();
+#endif // #ifndef CONFIG_KSU_SUSFS
 }
 #else
 #include "klog.h" // IWYU pragma: keep
@@ -384,7 +388,9 @@ void ksu_syscall_hook_manager_init(void)
 	pr_info("hook_manager: initializing..\n");
 	ksu_setuid_hook_init();
 	ksu_sucompat_init();
+#ifndef CONFIG_KSU_SUSFS
 	ksu_avc_spoof_init();
+#endif // #ifndef CONFIG_KSU_SUSFS
 }
 
 void ksu_syscall_hook_manager_exit(void)
@@ -392,6 +398,8 @@ void ksu_syscall_hook_manager_exit(void)
 	pr_info("hook_manager: exiting..\n");
 	ksu_sucompat_exit();
 	ksu_setuid_hook_exit();
+#ifndef CONFIG_KSU_SUSFS
 	ksu_avc_spoof_exit();
+#endif // #ifndef CONFIG_KSU_SUSFS
 }
 #endif

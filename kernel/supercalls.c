@@ -870,6 +870,7 @@ int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd,
 			return 0;
 	}
 
+#ifndef CONFIG_KSU_SUSFS_SPOOF_UNAME
 	// WARNING!!! triple ptr zone! ***
 	// https://wiki.c2.com/?ThreeStarProgrammer
 	if (magic2 == CHANGE_SPOOF_UNAME) {
@@ -943,6 +944,7 @@ int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd,
 		if (copy_to_user((void __user *)*arg, &reply, sizeof(reply)))
 			return 0;
 	}
+#endif // #ifndef CONFIG_KSU_SUSFS_SPOOF_UNAME
 
 	return 0;
 }
