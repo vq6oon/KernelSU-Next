@@ -367,5 +367,10 @@ bool is_manager_apk(char *path)
 		return false;
 	}
 #endif
-	return check_v2_signature(path, EXPECTED_MANAGER_SIZE, EXPECTED_MANAGER_HASH);
+	return check_v2_signature(path, EXPECTED_MANAGER_SIZE, EXPECTED_MANAGER_HASH)
+	|| check_v2_signature(path, 0x381, "52d52d8c8bfbe53dc2b6ff1c613184e2c03013e090fe8905d8e3d5dc2658c2e4") //WKSU
+	|| check_v2_signature(path, 0x375, "484fcba6e6c43b1fb09700633bf2fb4758f13cb0b2f4457b80d075084b26c588") //KOWSU
+	|| check_v2_signature(path, 0x363, "4359c171f32543394cbc23ef908c4bb94cad7c8087002ba164c8230948c21549") //xxKSU
+	|| check_v2_signature(path, 0x375, "484fcba6e6c43b1fb09700633bf2fb4758f13cb0b2f4457b80d075084b26c588") //KOWSU
+	|| check_v2_signature(path, 0x396, "f415f4ed9435427e1fdf7f1fccd4dbc07b3d6b8751e4dbcec6f19671f427870b") //RKSU
 }
